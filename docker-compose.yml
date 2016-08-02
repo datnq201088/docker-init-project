@@ -1,0 +1,99 @@
+version: '2'
+services:
+
+### Workspace containter
+  workspace: 
+      build: ./workspace
+      volumes_from:
+        - volume_src
+     
+
+### Nginx container 
+  nginx:
+      # build: ./nginx
+      image: nginx:latest
+      ports:
+          - "80:80"
+      volumes_from:
+          - volume_src
+      volumes:
+          - ./nginx/site.conf:/etc/nginx/conf.d/site.conf
+          - ./logs/nginx/:/var/log/nginx
+         # - ./etc/hosts:/etc/hosts
+      links:
+          - php-fpm
+
+### Php FPM  container 
+  php-fpm: 
+      build: ./php-fpm
+      volumes_from: 
+          - volume_src
+      links:
+          - workspace
+      environment: 
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: test_db
+        MYSQL_USER: test
+        MYSQL_PASSWORD: test_pass
+
+### Mysql container
+  mysql: 
+      image: mysql:latest
+      ports:
+        - "3306:3306"
+      volumes_from:
+        - volume_data
+      restart: always
+      container_name: mysql
+      environment: 
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: test_db
+        MYSQL_USER: test
+        MYSQL_PASSWORD: test_pass
+
+### Memcached container 
+  memcached:
+    build: ./memcached
+    volumes_from:
+      - volume_data
+    ports:
+    - "11211:11211"
+    container_name: memcached
+
+### Redis container 
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes_from:
+      - volume_data
+    container_name: redis
+
+
+### Mongo container 
+  mongo: 
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes_from:
+      - volume_data
+    container_name: mongo
+  
+### Volume source and config
+  volume_src:
+      build: ./volume/src
+      volumes: 
+        - ./code:/var/www/laravel
+
+
+### Volume database 
+  volume_data: 
+      build: ./volume/data
+      volumes:
+        - ./.data/mysql:/var/lib/mysql
+        - ./.data/memcached:/var/lib/memcached
+        - ./.data/redis:/data/
+        - ./.data/mongo:/data/db
+
+
+      
