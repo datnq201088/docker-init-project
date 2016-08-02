@@ -44,12 +44,38 @@ services:
       volumes_from:
         - volume_data
       restart: always
-      container_name: mysql
       environment: 
         MYSQL_ROOT_PASSWORD: root
         MYSQL_DATABASE: test_db
         MYSQL_USER: test
         MYSQL_PASSWORD: test_pass
+
+
+### MariaDB container 
+  mariadb:
+      build: ./mariadb
+      volumes_from:
+        - volume_data
+      ports:
+          - "3306:3306"
+      environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: test_db
+        MYSQL_USER: test
+        MYSQL_PASSWORD: test_pass
+
+### Postgress container 
+  postgres:
+      build: ./postgres
+      volumes_from:
+        - volume_data
+      ports:
+          - "5432:5432"
+      environment:
+          POSTGRES_DB: test_db
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test_pass
+
 
 ### Memcached container 
   memcached:
@@ -58,7 +84,6 @@ services:
       - volume_data
     ports:
     - "11211:11211"
-    container_name: memcached
 
 ### Redis container 
   redis:
@@ -67,7 +92,6 @@ services:
       - "6379:6379"
     volumes_from:
       - volume_data
-    container_name: redis
 
 
 ### Mongo container 
@@ -77,7 +101,14 @@ services:
       - "27017:27017"
     volumes_from:
       - volume_data
-    container_name: mongo
+
+
+### Beanstalkd container 
+  beanstalkd: 
+    build: ./beanstalkd
+    ports:
+      - "11300:11300"
+
   
 ### Volume source and config
   volume_src:
@@ -92,6 +123,7 @@ services:
       volumes:
         - ./.data/mysql:/var/lib/mysql
         - ./.data/memcached:/var/lib/memcached
+     
         - ./.data/redis:/data/
         - ./.data/mongo:/data/db
 

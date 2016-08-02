@@ -70,8 +70,9 @@ RUN apt-get install -y nodejs \
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 
 # Install gulp, bower 
-RUN npm install -g gulp \
-    bower
+   RUN npm install -g gulp \
+   bower
+   RUN echo "{ 'allow_root': true }"" > /root/.bowerrc
 
 
 # Source the bash
