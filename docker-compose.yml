@@ -114,7 +114,7 @@ services:
   volume_src:
       build: ./volume/src
       volumes: 
-        - ./code:/var/www/laravel
+        - ./src:/var/www/laravel
 
 
 ### Volume database 
