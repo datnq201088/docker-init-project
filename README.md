@@ -113,3 +113,63 @@ You follow step by step:
    Start all container: 
     *   `docker-compose up -d nginx mysql ... ` 
 
+
+## Laravel Homestead
+
+If you have project Laravel. It's easy to config:
+
+1. Follow all step above
+
+2. SSH to `workspace` container:
+   
+   * Remove all from `/var/www/html/` directory
+   
+   `cd /var/www/html/`
+
+   `rm -rf *`
+
+   * Install laravel latest
+
+   `composer create-project --prefer-dist laravel/laravel . `
+
+   * Edit file `.env`:
+    
+        *  HOST always use `service name` from `docker-compose.yml`
+
+        *  If you change your port config, you must update right port here
+
+        ```javascript
+
+                APP_URL=http://docker.dev
+
+                DB_CONNECTION=mysql
+                DB_HOST=mysql // container service
+                DB_PORT=3306 // default
+                DB_DATABASE=test_db //get from `docker-compose.yml`
+                DB_USERNAME=test
+                DB_PASSWORD=test_pass
+
+                CACHE_DRIVER=file
+                SESSION_DRIVER=file
+                QUEUE_DRIVER=sync
+
+                REDIS_HOST=redis // container service
+                REDIS_PASSWORD=null
+                REDIS_PORT=6379 // default
+
+        ```
+
+
+
+
+3. Check your host config in `nginx/site.conf` 
+
+        `root  /var/www/html/public;`
+
+4. Chmod writeable access for directory `vendor, storage, bootstrap/cache`
+
+
+    ` chmod -R 777 vendor storage bootstrap/cache`
+
+
+5. Open your browser `http://docker.dev`. That's all !

@@ -76,6 +76,3 @@ RUN ln -s /usr/bin/nodejs /usr/bin/node
 
    RUN echo '{ "allow_root": true }' > /root/.bowerrc
 
-
-# Source the bash
-# RUN . ~/.bashrc
