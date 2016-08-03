@@ -84,12 +84,16 @@ You follow step by step:
 
 7. Enter container `workspace`  to work
    This is container you run comand: `npm, gulp, grunt, bower, composer ` to install all packages, dependencies.
-   * You get container name:
+    * You get container name:
    
         * `docker ps `
-  * SSH container `workspace`
+    * SSH container `workspace`
   
         * `docker exec -it web_workspace_1 bash`
+        
+         Install  packages inside `workspace` container: 
+          - `composer install package_name `
+          - `bower install jquery `
 
 8. Open your browser: `http://docker.dev`. It works fine! 
 
