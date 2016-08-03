@@ -98,7 +98,9 @@ You follow step by step:
 8. Open your browser: `http://docker.dev`. It works fine! 
 
 
-### Update and customize
+
+
+## Update and customize
 
 1. You can edit `docker-compose.yml` and `Dockerfile` in folder services
 
@@ -112,6 +114,8 @@ You follow step by step:
 
    Start all container: 
     *   `docker-compose up -d nginx mysql ... ` 
+
+
 
 
 ## Laravel Homestead
