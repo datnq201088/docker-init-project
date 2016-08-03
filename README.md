@@ -94,7 +94,7 @@ You follow step by step:
 8. Open your browser: `http://docker.dev`. It works fine! 
 
 
-### Update and custimise
+### Update and customize
 
 1. You can edit `docker-compose.yml` and `Dockerfile` in folder services
 
