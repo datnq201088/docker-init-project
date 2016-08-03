@@ -82,7 +82,8 @@ You follow step by step:
     ```
 
 
-7. Enter container `workspace`  to work
+7. Enter container `workspace`  to work.
+
    This is container you run comand: `npm, gulp, grunt, bower, composer ` to install all packages, dependencies.
     * You get container name:
    
