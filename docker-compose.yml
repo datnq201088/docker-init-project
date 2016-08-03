@@ -108,13 +108,15 @@ services:
     build: ./beanstalkd
     ports:
       - "11300:11300"
+    links:
+      - php-fpm
 
   
 ### Volume source and config
   volume_src:
       build: ./volume/src
       volumes: 
-        - ./src:/var/www/laravel
+        - ./src:/var/www/html
 
 
 ### Volume database 
@@ -123,7 +125,7 @@ services:
       volumes:
         - ./.data/mysql:/var/lib/mysql
         - ./.data/memcached:/var/lib/memcached
-     
+        - ./.data/postgres:/var/lib/postgres
         - ./.data/redis:/data/
         - ./.data/mongo:/data/db
 

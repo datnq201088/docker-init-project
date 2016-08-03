@@ -58,7 +58,7 @@ RUN curl -L -o /tmp/memcached.tar.gz "https://github.com/php-memcached-dev/php-m
     && rm /tmp/memcached.tar.gz \
 && docker-php-ext-enable memcached
 
-WORKDIR /var/www/laravel
+WORKDIR /var/www/html
 
 CMD ["php-fpm"]
 

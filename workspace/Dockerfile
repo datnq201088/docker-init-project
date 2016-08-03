@@ -61,7 +61,7 @@ RUN apt-get update && \
 
 # Install composer and add its bin to the PATH.
 RUN curl -s http://getcomposer.org/installer | php && \
-    echo "export PATH=${PATH}:/var/www/laravel/vendor/bin" >> ~/.bashrc && \
+#   echo "export PATH=${PATH}:/var/www/html/vendor/bin" >> ~/.bashrc && \
     mv composer.phar /usr/local/bin/composer
 
 # Install nodejs 
@@ -71,9 +71,11 @@ RUN ln -s /usr/bin/nodejs /usr/bin/node
 
 # Install gulp, bower 
    RUN npm install -g gulp \
-   bower
-   RUN echo "{ 'allow_root': true }"" > /root/.bowerrc
+   bower \
+   grunt
+
+   RUN echo '{ "allow_root": true }' > /root/.bowerrc
 
 
 # Source the bash
-RUN . ~/.bashrc
+# RUN . ~/.bashrc
