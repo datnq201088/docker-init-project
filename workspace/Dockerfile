@@ -13,6 +13,18 @@ ENV LC_CTYPE=UTF-8
 ENV LANG=en_US.UTF-8
 ENV TERM xterm
 
+# Add user
+ARG PGID=1000
+ARG PUID=1000
+RUN groupadd -g $PGID dockertest
+RUN useradd -u $PUID -m -g dockertest dockertest
+
+USER root
+
+# Chown /var/www/html
+
+
+
 # Add the "PHP 7" ppa
 RUN apt-get install -y software-properties-common && \
     add-apt-repository -y ppa:ondrej/php
@@ -74,5 +86,12 @@ RUN ln -s /usr/bin/nodejs /usr/bin/node
    bower \
    grunt
 
-   RUN echo '{ "allow_root": true }' > /root/.bowerrc
+   # RUN echo '{ "allow_root": true }' > /root/.bowerrc
+
+# Clean up
+USER root
+RUN apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+WORKDIR /var/www/html
 

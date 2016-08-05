@@ -116,7 +116,8 @@ services:
   volume_src:
       build: ./volume/src
       volumes: 
-        - ./src:/var/www/html
+       - ./src:/var/www/html
+        # - ./src:/home/dockertest/laravel
 
 
 ### Volume database 
